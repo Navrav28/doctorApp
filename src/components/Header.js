@@ -8,21 +8,22 @@ import {
 } from 'react-native';
 import React from 'react';
 
-const Header = ({ title, icon }) => {
+const Header = ({ title, icon, back }) => {
   return (
     <View style={styles.header}>
-      <StatusBar backgroundColor="#252628ff" barStyle={'light-content'} />
+      <StatusBar
+        backgroundColor="#252628ff"
+        barStyle={'light-content'}
+        hidden={true}
+      />
       {/* this btn for back but not for home screen  */}
       {icon ? (
-        <TouchableOpacity style={styles.backBtn} onPress={() => {}}>
-          <Image
-            style={styles.backImg}
-            source={icon}
-          />
+        <TouchableOpacity style={styles.backBtn} onPress={back}>
+          <Image style={styles.backImg} source={icon} />
         </TouchableOpacity>
       ) : null}
 
-      <Text style={[styles.title,{}]}>{title}</Text>
+      <Text style={[styles.title, {}]}>{title}</Text>
     </View>
   );
 };

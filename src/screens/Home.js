@@ -12,7 +12,7 @@ import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Header from '../components/Header';
 
-const Home = () => {
+const Home = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Header title={`Doctors Here`} icon={require('../Images/logo1.png')} />
@@ -46,6 +46,8 @@ const Home = () => {
           />
         </View>
         <Text style={styles.heading}>Top Rated Doctors</Text>
+
+        {/* using flatList for booking cards */}
         <View style={{ marginTop: 5 }}>
           <FlatList
             contentContainerStyle={{ paddingBottom: 20 }}
@@ -73,20 +75,37 @@ const Home = () => {
                     textAlign: 'center',
                     marginTop: 10,
                     fontSize: 17,
-                    color: 'white',
+                    color: index % 2 == 0 ? '#fff' : 'yellow',
                     fontWeight: '500',
                   }}
                 >
-                  Busy
+                  {index % 2 == 0 ? 'Availabel' : 'Busy'}
                 </Text>
-                <TouchableOpacity >
-                  <LinearGradient
-                    style={styles.TopDoctorBtn}
-                    colors={['#3eb489', '#90EE90',]}
-                  >
-                    <Text>Book Appointment</Text>
-                  </LinearGradient>
-                </TouchableOpacity>
+                {index % 2 == 0 ? (
+                  <TouchableOpacity activeOpacity={0.6} onPress={() => {
+                    navigation.navigate('BookApointment')
+                  }}>
+                    <LinearGradient
+                      style={styles.TopDoctorBtn}
+                      colors={['#3eb489', '#90EE90']}
+                    >
+                      <Text style={{ color: '#252628ff' }}>
+                        Book Appointment
+                      </Text>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity disabled>
+                    <LinearGradient
+                      style={styles.TopDoctorBtn}
+                      colors={['#e6f0edff', '#909490ff']}
+                    >
+                      <Text style={{ color: '#606060ff' }}>
+                        Book Appointment
+                      </Text>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                )}
               </LinearGradient>
             )}
           />
@@ -163,12 +182,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: 'center',
   },
-    TopDoctorBtn: {
-      justifyContent: 'center',
-      width: "90%",
-      height: 30,
-      alignSelf: "center",
-      borderRadius:5
-
+  TopDoctorBtn: {
+    justifyContent: 'center',
+    width: '90%',
+    height: 30,
+    alignSelf: 'center',
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 20,
   },
 });
